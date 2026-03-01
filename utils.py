@@ -5,13 +5,11 @@ from pypdf import PdfReader
 import numpy as np
 import logging
 from config import CHUNK_SIZE, CHUNK_OVERLAP
-from model import get_embed_model
-from langchain_core.documents import Document
+from model import generate_embeddings
+from config import DOCS_FOLDER
+import fitz # PyMuPDF library
 
-from unstructured.partition.pdf import partition_pdf
-from llama_index.core_node_parser import SemanticSplitterNodeParser
 
-DOCS_FOLDER = "documets"
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -22,7 +20,6 @@ print("DATA_DIR = ", DATA_DIR)
 CHUNK_FILE = DATA_DIR / "chunks.npy"
 EMBEDDINGS_FILE = DATA_DIR / "chunks_embeddings.npy"
 
-path = Path("C:/Users/kajao/OneDrive/Dokumenty/Project/mechanic_assistant/documets/LAD-Front-Loading-Service-Manual-L11.pdf")
 
 text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,  # chunk size (characters)
@@ -31,7 +28,7 @@ text_splitter = RecursiveCharacterTextSplitter(
     )
 
 def load_documents() -> None:
-
+    """Load all PDF documents, build embeddings, and save index."""
     pdf_files = [f for f in os.listdir(DOCS_FOLDER) if f.endswith(".pdf")]
 
     if not pdf_files:
@@ -56,21 +53,22 @@ def load_documents() -> None:
         np.save(CHUNK_FILE, np.array(all_chunks))
         msg = f"Chunks and embeddings saved to: {DATA_DIR}"
         logger.info(msg)
+
+    logger.info("Chunks and embeddings saved to: %s", DATA_DIR)
     
 
-# def load_pdf(path: Path) -> str:
-#     reader = PdfReader(path)
-        
-
 def chunk_text(path: Path) -> list[dict]:
+    """Split PDF into text chunks with filename and page numbers."""
     file_name: str = path.stem
     chunks: list[dict] = []
 
-    reader = PdfReader(path)
+    text = ""
+    # Open a PDF document
+    doc = fitz.open(path)
 
-    for page_num, page in enumerate(reader.pages):
-        text = page.extract_text()
-        # print(text)
+    # Iterate through pages and extract text
+    for page_number, page in enumerate(doc, start=1):
+        text = page.get_text() # Extract text as UTF-8
 
         if text.strip():
             page_chunks = text_splitter.split_text(text)
@@ -78,67 +76,28 @@ def chunk_text(path: Path) -> list[dict]:
                 chunks.append({
                     "text": chunk_text,
                     "source": file_name,
-                    "page": page_num+1,
+                    "page": page_number,
                 })
-                # chunks.append(
-                #     Document(
-                #         page_content=chunk_text,
-                #         metadata={
-                #             "source": file_name,
-                #             "page": page_num + 1,
-                #         },
-                #     )
-                # )
-        # print(chunks)
-        # break
+
+    doc.close()
     return chunks
-    # # printing number of pages in pdf file
-    # print(len(reader.pages))
 
-    # # creating a page object
-    # page = reader.pages[4]
 
-    # # extracting text from page
-    # print(page.extract_text())
-
-def test_page(num_page):
-    reader = PdfReader(path)
-    # creating a page object
-    page = reader.pages[num_page]
-
-    # extracting text from page
-    print(page.extract_text())
-
-def build_embeddings(file_path: Path) -> tuple:
+def build_embeddings(file_path: Path) -> tuple[list[dict], np.ndarray]:
+    """Generate normalized embeddings for all chunks in a PDF."""
     chunks = chunk_text(file_path)
     texts = [chunk["text"] for chunk in chunks]
-    # texts = [chunk.page_content for chunk in chunks]
-    embeddings = get_embed_model(texts)
+
+    embeddings = generate_embeddings(texts)
+    embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+    
     return chunks, embeddings
 
-# load_pdf("/...")
-# process_file(path)
-# chunks, embeddings = build_embeddings()
-# print(chunks)
-# print("===============")
-# print(embeddings)
 
-def load_index():
+def load_index() -> tuple[np.ndarray, np.ndarray]:
+    """Load saved chunks and embeddings from disk."""
     chunks = np.load(CHUNK_FILE, allow_pickle=True)
     embeddings = np.load(EMBEDDINGS_FILE)
+    logger.info("Loaded saved chunks and embeddings from disk.")
     return chunks, embeddings
 
-# load_documents()
-# test_page(31)
-
-def extract_text():
-    elements = partition_pdf(
-        path,
-        strategy="hi_res",
-        extract_images_in_pdf=True,
-        infer_table_structure=True
-    )
-    text = "\n\n".join([str(el) for el in elements])
-    print(text)
-
-extract_text()

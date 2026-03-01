@@ -1,17 +1,17 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from utils import load_documents, load_index
-from model import get_embed_model
-from validation_metrics import cosine_similarity, combined_score
+from model import generate_embeddings, generate_chat_response
 import numpy as np
+import logging
 
-def answer():
-    pass
+logger = logging.getLogger(__name__)
 
 def run_pipeline_faiss(question: str):
+    """Return the most relevant FAISS search result for a query."""
     load_documents()
     chunks, embeddings = load_index()
-    # query_embed = get_embed_model(question)
+    # query_embed = generate_embeddings(question)
 
     embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
 
@@ -25,55 +25,42 @@ def run_pipeline_faiss(question: str):
     
     return results[0]
 
-# def retrieve_top_k(query_embedding, chunks, embeddings, k: int) -> list[tuple[int, float, str]]:
 
-#     # scores = [(i, cosine_similarity(query_embedding, emb)) for i, emb in enumerate(embeddings)]
-#     # scores.sort(key=lambda x: x[1], reverse=True)
-#     # top = scores[:k]
-
-#     # return [(i, sim, chunks[i]) for i, sim in top]
-#     query_embedding = query_embedding.reshape(1, -1) 
-#     scores = [] 
-#     for i, emb in enumerate(embeddings): 
-#         emb = emb.reshape(1, -1) # reshape each embedding 
-         
-#         sims = cosine_similarity(query_embedding.reshape(1, -1), embeddings)[0] 
-#     top_idx = sims.argsort()[::-1][:k] 
-#     return [(i, sims[i], chunks[i]) for i in top_idx]
-#     #     sim = cosine_similarity(query_embedding.reshape(1, -1), emb)[0][0]
-#     #     scores.append((i, sim)) 
-#     # scores.sort(key=lambda x: x[1], reverse=True) 
-#     # top = scores[:k] 
-#     # return [(i, sim, chunks[i]) for i, sim in top]
-
-def retrieve_top_k(query_text, query_embed, chunks, embeddings, k): 
-    query_embed = query_embed / np.linalg.norm(query_embed)  
-    embed_sims = embeddings @ query_embed 
-    scored = [] 
-    for i, sim in enumerate(embed_sims): 
-        text = chunks[i]["text"] 
-        score = combined_score(query_text, text, sim) 
-        scored.append((i, score, chunks[i])) 
-    scored.sort(key=lambda x: x[1], reverse=True) 
-    return scored[:k]
+def retrieve_top_k(query_embed, chunks,embeddings, k=5): 
+    query_embed = query_embed / np.linalg.norm(query_embed) 
+    sims = embeddings @ query_embed 
+    top_idx = np.argsort(sims)[::-1][:k] 
+    return [(i, sims[i], chunks[i]) for i in top_idx]
 
 def run_pipeline(question: str):
-    # load_documents()
+    load_documents()
     chunks, embeddings = load_index()
-    query_embed = np.array(get_embed_model([question]))[0]
-    # print("query_embed = ", query_embed)
-    # print("emmbeddings = ", embeddings[:10])
-    # print("Query norm:", np.linalg.norm(query_embed)) 
-    # print("First embedding norm:", np.linalg.norm(embeddings[0])) 
-    # print("All norms (first 10):", np.linalg.norm(embeddings, axis=1)[:10])
-    retrieved = retrieve_top_k(question, query_embed, chunks, embeddings, 3)
+    query_embed = np.array(generate_embeddings([question]))[0]
 
-    for res in retrieved:
-        print(res)
+    retrieved = retrieve_top_k(query_embed, chunks, embeddings, 5)
+
+    context_parts = [] 
+    for _, _, chunk in retrieved: 
+        file_name = chunk.get("source", "unknown_file") 
+        page = chunk.get("page", "unknown_page") 
+        text = chunk.get("text", "") 
+        context_parts.append( f"[Source: {file_name}, Page: {page}]\n{text}" ) 
+    context = "\n\n".join(context_parts)
+    
+    prompt = f""" 
+    You are a technical assistant for field mechanics. 
+    Answer the question using ONLY the context below.
+    Cite the source of your information, e.g. [source, [page_num_1, pge_num_2]]. 
+    Context: {context} 
+    Question: {question} 
+    """ 
+
+    response = generate_chat_response(prompt)
+    return response
 
 
 
 if __name__ == '__main__':
-    question: str = "How should user control washing maschine?"
-    # answer: str = answer()
+    question: str = "How does a technician enter service mode on the L11 washing machine?"
+    load_documents()
     run_pipeline(question)
