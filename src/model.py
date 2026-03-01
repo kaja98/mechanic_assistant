@@ -1,5 +1,5 @@
 from openai import OpenAI
-from config import MODEL_NAME, EMBEDDING_MODEL
+from src.config import MODEL_NAME, EMBEDDING_MODEL
 from dotenv import load_dotenv
 import os
 

@@ -1,30 +1,12 @@
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
-from utils import load_documents, load_index
-from model import generate_embeddings, generate_chat_response
+from src.utils import load_documents, load_index, timer, parse_source_info
+from src.model import generate_embeddings, generate_chat_response
 import numpy as np
 import logging
+from src.document_processor import DocumentProcessor
 
 logger = logging.getLogger(__name__)
-
-def run_pipeline_faiss(question: str):
-    """Return the most relevant FAISS search result for a query."""
-    load_documents()
-    chunks, embeddings = load_index()
-    # query_embed = generate_embeddings(question)
-
-    embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
-
-    vectorstore = FAISS.from_documents(chunks, embedding_model)
-    results = vectorstore.similarity_search(question, k=2)
-
-    print(f"\nQuery: '{question}'")
-    print("\nTop 2 relevant chunks:")
-    for i, doc in enumerate(results, 1):
-        print(f"\nChunk {i}: {doc.page_content}")
-    
-    return results[0]
-
 
 def retrieve_top_k(query_embed, chunks,embeddings, k=5): 
     query_embed = query_embed / np.linalg.norm(query_embed) 
@@ -33,24 +15,26 @@ def retrieve_top_k(query_embed, chunks,embeddings, k=5):
     return [(i, sims[i], chunks[i]) for i in top_idx]
 
 def run_pipeline(question: str):
-    load_documents()
+    logger.info("Start running pipeline...")
     chunks, embeddings = load_index()
     query_embed = np.array(generate_embeddings([question]))[0]
 
     retrieved = retrieve_top_k(query_embed, chunks, embeddings, 5)
 
     context_parts = [] 
-    for _, _, chunk in retrieved: 
+    for _, _, chunk in retrieved:
+        chunk_id = chunk.get("id", "")
         file_name = chunk.get("source", "unknown_file") 
         page = chunk.get("page", "unknown_page") 
         text = chunk.get("text", "") 
-        context_parts.append( f"[Source: {file_name}, Page: {page}]\n{text}" ) 
+        context_parts.append( f"[Source: {file_name}, Page: {page}, Chunk_id: {chunk_id}]\n{text}" ) 
     context = "\n\n".join(context_parts)
     
     prompt = f""" 
     You are a technical assistant for field mechanics. 
     Answer the question using ONLY the context below.
-    Cite the source of your information, e.g. [source, [page_num_1, pge_num_2]]. 
+    Cite the source using the metadata provided in the context.
+    Use this exact format: [source: <file_name>, page: <page_number>, chunk:<chunk_id>].
     Context: {context} 
     Question: {question} 
     """ 
@@ -61,6 +45,16 @@ def run_pipeline(question: str):
 
 
 if __name__ == '__main__':
-    question: str = "How does a technician enter service mode on the L11 washing machine?"
-    load_documents()
-    run_pipeline(question)
+    
+    with timer() as t_buid_idx:
+        processor = DocumentProcessor()
+        chunks = processor.load_documents()
+        processor.build_index(chunks)
+    logger.info("Build index completed in %.2f seconds", t_buid_idx)
+    
+    question: str = "What should be done before servicing electrical components?"
+    answer = run_pipeline(question) 
+    print(answer)
+    print(parse_source_info(answer))
+    
+

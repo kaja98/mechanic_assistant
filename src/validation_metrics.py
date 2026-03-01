@@ -10,7 +10,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-from model import generate_embeddings
+from src.model import generate_embeddings
 
 logger = logging.getLogger(__name__)
 
