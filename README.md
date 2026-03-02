@@ -60,7 +60,7 @@ cp /path/to/your/manuals/*.pdf documents/
 
 ```bash
 # Build the index (first time or when documents change)
-python src/main.py
+python -m src.main
 
 # The script will:
 # 1. Load all PDFs from documents/ folder
@@ -115,6 +115,6 @@ CHUNK_SIZE = 4000                       # Characters per chunk
 CHUNK_OVERLAP = 800                     # Overlap between chunks (20%)
 
 # Retrieval Configuration
-TOP_K_RESULT = 5                        # Number of chunks to retrieve
+TOP_K_RESULT = 20                        # Number of chunks to retrieve
 DOCS_FOLDER = "documents"               # Path to PDF documents
 ```
