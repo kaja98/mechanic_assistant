@@ -1,0 +1,167 @@
+[
+    {
+        "query": "What does error code E10 mean in the L11 washing machine?",
+        "answer": "E10 indicates a water injecting problem during wash cycle. The root reason is that the water level does not change within 3 minutes.",
+        "relevant_chunks": [
+            12
+        ],
+        "model_answer": "Error code **E10** in the L11 washing machine indicates a **water injecting problem during the wash cycle**. The root reason is that the water level doesn\u2019t change within 3 minutes. Possible causes include low water pressure, the water faucet not being turned on, blocked screens on hoses, blocked screens inside the water inlet valve, damage to the water inlet valve, or issues with the water level sensor. \n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 12, chunk: 13]"
+    },
+    {
+        "query": "What are the possible causes of E10?",
+        "answer": "Possible causes include low water pressure below 0.1 MPa, water faucet not turned on, blocked hose screens, faulty inlet valve, or defective water level sensor.",
+        "relevant_chunks": [
+            12
+        ],
+        "model_answer": "The possible causes of E10 are:\n\n1. The washer is filling very slowly; the water pressure from the house might be too low (must be greater than 0.1 MPa).\n2. The water faucet is not turned on, or the screens on the hoses are blocked.\n3. The screens inside the water inlet valve are blocked, or the water inlet valve is damaged.\n4. Something is wrong with the water level sensor.\n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 12, chunk: 13]"
+    },
+    {
+        "query": "What does error code E12 indicate?",
+        "answer": "E12 indicates that the water level exceeds overflow level for 16 consecutive seconds. The machine will drain and trigger alarm.",
+        "relevant_chunks": [
+            16
+        ],
+        "model_answer": "Error code E12 indicates that the water level in the drum exceeds a certain level for an alarm. This occurs when the program is in a state of suspension, operation, or a recoverable alarm, and if the water level is detected to be higher than the overflow water level within 16 consecutive seconds, the water level will be emptied. After this, the E12 alarm will be given. [source: LAD-Front-Loading-Service-Manual-L11, Page: 16, Chunk_id: 17]."
+    },
+    {
+        "query": "What should be checked first when E12 occurs?",
+        "answer": "Restart the machine. If water enters without power, replace the water valve.",
+        "relevant_chunks": [
+            17
+        ],
+        "model_answer": "When E12 occurs, the first step to check is to restart the machine to see if it still alarms. This is described in the malfunction codes and explanations for E12 [source: LAD-Front-Loading-Service-Manual-L11, page: 18, chunk: 19]."
+    },
+    {
+        "query": "How do I perform a safety check after servicing?",
+        "answer": "After servicing, check to see that the screws, parts, and wiring are restored to their original positions, and check the insulation between the external metals and the socket plug.",
+        "relevant_chunks": [
+            3
+        ],
+        "model_answer": "To perform a safety check after servicing, ensure the following steps are completed:\n\n1. Confirm that all screws, parts, and wiring are restored to their original positions.\n2. Check the insulation between the external metals and the socket plug.\n3. Ensure the washing machine is placed in a level position, ideally less than 1 degree, to prevent vibration and noise during operation.\n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 3, chunk: 4]"
+    },
+    {
+        "query": "What precautions should I take for safety?",
+        "answer": "Observe warnings and use genuine parts. Check to ensure that the washing machine is installed securely and safely according to electrical standards.",
+        "relevant_chunks": [
+            4,
+            5,
+            6
+        ],
+        "model_answer": "For safety during servicing and troubleshooting, observe the following precautions:\n\n1. **Use Genuine Parts**: Always use parts suggested by the maker, especially for major safety components.\n2. **Grounding**: Properly connect the grounding wire to ensure safety.\n3. **Observe Warnings**: Follow warnings and precautions outlined in part labels and the owner\u2019s manual.\n4. **Parts Assembly and Wiring**: Use insulation materials and restore all parts and wires to their original position. \n5. **Perform Safety Checks after Servicing**: Check screws, parts, wiring, and insulation after servicing.\n6. **Insulation Checks**: Measure insulation resistance to avoid electrical shock.\n7. **Disconnect Power**: Always unplug the product before conducting repairs or measurements.\n\nAdditional safety warnings include avoiding contact with sharp edges, monitoring for potential electric shocks, and ensuring the workspace is safe for handling and repairs.\n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 3, chunk: 4]"
+    },
+    {
+        "query": "How can I troubleshoot a water drainage issue?",
+        "answer": "Check if the drain pump is blocked, verify that hoses are properly installed, and check for obstructions in the drain pump.",
+        "relevant_chunks": [
+            60
+        ],
+        "model_answer": "To troubleshoot a water drainage issue, follow these steps:\n\n1. **Check Drain Hose Installation**: Ensure the drain hose is properly installed and not inserted more than 4.5 inches into the drain pipe.\n   \n2. **Inspect for Obstructions**: Check the drain hose for any blockages. Additionally, look for obstructions in the tub sump under the agitator plate and basket.\n\n3. **Harness Connection**: Verify the harness connection between the main control and the drain pump to ensure it is secure.\n\n4. **Drain Pump Functionality**: Test the drain pump for proper operation. Consult TEST #7: Drain Pump for specific testing procedures.\n\n5. **Check Main Control**: If everything else appears functional, check the main control for any issues as it may be causing the malfunction.\n\nIf the issue persists after these checks, further investigation may be required [source: technical-manual-w11663204-revb, page: 29, chunk: 28]."
+    },
+    {
+        "query": "What does error code E10 mean?",
+        "answer": "E10 indicates a water injecting problem during the wash cycle, where the water level does not change within 3 minutes. Possible causes include low water pressure or blocked filters.",
+        "relevant_chunks": [
+            12
+        ],
+        "model_answer": "Error code **E10** indicates a \"water injecting problem during the wash cycle.\" The root reason for this code is that the water level does not change within 3 minutes. Possible causes include:\n\n- The water pressure from the house might be too low (it must be greater than 0.1 MPa).\n- The water faucet is not turned on or the screens on the hoses are blocked.\n- The screens inside the water inlet valve are blocked or the water inlet valve is damaged.\n- There may be an issue with the water level sensor. \n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 12, chunk: 13]"
+    },
+    {
+        "query": "What is the correct resistance range for the door lock?",
+        "answer": "100\u00e2\u20ac\u201c300 ohms is the correct resistance range for the door lock.",
+        "relevant_chunks": [
+            27
+        ],
+        "model_answer": "The correct resistance range for the door lock is 100-300 \u03a9. [source: LAD-Front-Loading-Service-Manual-L11, page: 27, chunk: 28]"
+    },
+    {
+        "query": "How do you enter service mode in L11?",
+        "answer": "Turn on machine and press K3, K5, K3, K5 within 10 seconds.",
+        "relevant_chunks": [
+            10
+        ],
+        "model_answer": "To enter service mode in the L11, ensure no water remains in the inner drum. If there's water, select the spin-only program to drain it out. Then, turn on the machine and press the buttons [K3] [K5] [K3] [K5] in sequence within 10 seconds. Next, press [K1] or [K2] to select the test program and confirm your selection by pressing [K7].\n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 10, chunk: 11]"
+    },
+    {
+        "query": "What motor type does the Maytag washer use?",
+        "answer": "It uses a bi-directional PSC (Permanent Split Capacitor) 120 VAC motor.",
+        "relevant_chunks": [
+            8
+        ],
+        "model_answer": "The Maytag\u00ae 3.5 cu ft Commercial-Grade Residential Agitator Washer uses a bi-directional PSC (Permanent Split Capacitor) motor operating at 120 VAC. Agitation and variable spin speeds are accomplished by applying power in pulses. [source: technical-manual-w11663204-revb, page: 7, chunk: 6]."
+    },
+    {
+        "query": "How long does calibration cycle run?",
+        "answer": "Approximately 2\u00e2\u20ac\u201c4 minutes.",
+        "relevant_chunks": [
+            20
+        ],
+        "model_answer": "The calibration cycle runs for approximately 2\u20134 minutes. [source: technical-manual-w11663204-revb, page: 36, chunk: 35]"
+    },
+    {
+        "query": "What indicates overflow condition?",
+        "answer": "F8E3 indicates overflow condition when water level exceeds capacity.",
+        "relevant_chunks": [
+            25
+        ],
+        "model_answer": "An overflow condition is indicated when the main control senses a water level that exceeds the washer\u2019s capacity. Possible causes include problems with the inlet water valves, pressure hose issues (such as being pinched, kinked, plugged, or leaking air), or a problem with the onboard pressure transducer. [source: technical-manual-w11663204-revb, page: 24, chunk: 23]"
+    },
+    {
+        "query": "What is the drain hose height requirement?",
+        "answer": "Drain height must be between 39 inches and 8 feet above floor.",
+        "relevant_chunks": [
+            18
+        ],
+        "model_answer": "The drain hose height must be between 39 inches (0.991 m) and 8 feet (2.4 m) above the floor. [source: technical-manual-w11663204-revb, page: 17, chunk: 16]"
+    },
+    {
+        "query": "What happens if lid is not opened between cycles?",
+        "answer": "F5E4 fault is triggered indicating lid not opened between cycles.",
+        "relevant_chunks": [
+            24
+        ],
+        "model_answer": "If the lid is not opened between cycles, a fault is displayed indicating that the user pressed START after several consecutive washer cycles without opening the lid. This will trigger a fault that requires checking the lid lock, as noted in the troubleshooting steps. The recommended procedure is to refer to TEST #8: Lid Lock for further investigation and resolution. \n\n[source: technical-manual-w11663204-revb, page: 11, chunk: 10]"
+    },
+    {
+        "query": "What is the average total water usage per cycle?",
+        "answer": "22 gallons.",
+        "relevant_chunks": [
+            11
+        ],
+        "model_answer": "The average total water usage per cycle is 22 gallons.  \n[source: technical-manual-w11663204-revb, page: 10, chunk: 9]"
+    },
+    {
+        "query": "What is the maximum G-force?",
+        "answer": "Maximum G-force is 143.",
+        "relevant_chunks": [
+            10
+        ],
+        "model_answer": "The maximum G-force is 143. [source: technical-manual-w11663204-revb, page: 9, chunk: 8]"
+    },
+    {
+        "query": "What is F5E2 error?",
+        "answer": "F5E2 indicates lid lock fault when lid lock does not move to locked position.",
+        "relevant_chunks": [
+            24
+        ],
+        "model_answer": "The F5E2 error is displayed if the Lid Lock has not moved into the locked position or the motor cannot be powered. Possible reasons include the lid not being closed completely due to interference, lock interference with the lock striker, wash media buildup preventing the lock mechanism from sliding, or the main control detecting an open lid switch while attempting to lock. You can refer to TEST #8: Lid Lock for further diagnosis and troubleshooting steps.  \n\n[source: technical-manual-w11663204-revb, page: 23, chunk: 22]"
+    },
+    {
+        "query": "What is the maximum motor RPM?",
+        "answer": "The motor RPM is 700.",
+        "relevant_chunks": [
+            10
+        ],
+        "model_answer": "The maximum motor RPM is not explicitly stated in the provided context. \n\nHowever, in the context of \"Low Spin\" and \"High Spin\" tests, the motor is mentioned to spin from 0 to maximum RPM. \n\nFor specific RPM values, you may need to reference additional documentation or specifications beyond the provided context.  \n\n[source: technical-manual-w11663204-revb, page: 2, chunk: 1]"
+    },
+    {
+        "query": "What should be done before servicing electrical components?",
+        "answer": "Disconnect power before servicing to avoid electric shock.",
+        "relevant_chunks": [
+            17,
+            33,
+            47,
+            59
+        ],
+        "model_answer": "Before servicing electrical components, it is essential to follow safety measures such as:\n\n1. **Grounding**: Ground yourself to prevent electrostatic discharge (ESD) damage to sensitive electronics by using an antistatic wrist strap or regularly touching a grounded metal part of the appliance.\n2. **Power Check**: Ensure the controls are in the off position so the appliance does not start when energized.\n3. **Disconnect Power**: Always unplug the washer or disconnect power before servicing.\n\nThese precautions help prevent electric shock and damage to components. \n\n[source: LAD-Front-Loading-Service-Manual-L11, page: 3, chunk: 4]"
+    }
+]

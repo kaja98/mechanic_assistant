@@ -1,0 +1,106 @@
+[    
+{
+    "query": "What does error code E10 mean in the L11 washing machine?",
+    "answer": "E10 indicates a water injecting problem during wash cycle. The root reason is that the water level does not change within 3 minutes.",
+    "relevant_chunks": [12]
+  },
+  {
+    "query": "What are the possible causes of E10?",
+    "answer": "Possible causes include low water pressure below 0.1 MPa, water faucet not turned on, blocked hose screens, faulty inlet valve, or defective water level sensor.",
+    "relevant_chunks": [12]
+  },
+  {
+    "query": "What does error code E12 define?",
+    "answer": "E12 indicates that the water level exceeds overflow level for 16 consecutive seconds. The machine will drain and trigger alarm.",
+    "relevant_chunks": [16]
+  },
+  {
+    "query": "What should be checked first when E12 occurs?",
+    "answer": "Restart the machine. If water enters without power, replace the water valve.",
+    "relevant_chunks": [17]
+  },
+    {
+        "query": "How do I perform a safety check after servicing?",
+        "answer": "After servicing, check to see that the screws, parts, and wiring are restored to their original positions, and check the insulation between the external metals and the socket plug.",
+        "relevant_chunks": [3]
+    },
+    {
+        "query": "What precautions should I take for safety?",
+        "answer": "Observe warnings and use genuine parts. Check to ensure that the washing machine is installed securely and safely according to electrical standards.",
+        "relevant_chunks": [4,5,6]
+    },
+
+    {
+        "query": "How can I troubleshoot a water drainage issue?",
+        "answer": "Check if the drain pump is blocked, verify that hoses are properly installed, and check for obstructions in the drain pump.",
+        "relevant_chunks": [60]
+    },
+    {
+        "query": "What does error code E10 mean?",
+        "answer": "E10 indicates a water injecting problem during the wash cycle, where the water level does not change within 3 minutes. Possible causes include low water pressure or blocked filters.",
+        "relevant_chunks": [12]
+    },
+    {
+        "query": "What is the correct resistance range for the door lock?",
+        "answer": "100–300 ohms is the correct resistance range for the door lock.",
+        "relevant_chunks": [27]
+    },
+    {
+        "query": "How do you enter service mode in L11?",
+        "answer": "Turn on machine and press K3, K5, K3, K5 within 10 seconds.",
+        "relevant_chunks": [10]
+    },
+
+
+
+    {
+        "query": "What motor type does the Maytag washer use?",
+        "answer": "It uses a bi-directional PSC (Permanent Split Capacitor) 120 VAC motor.",
+        "relevant_chunks": [8]
+    },
+    {
+        "query": "How long does calibration cycle run?",
+        "answer": "Approximately 2–4 minutes.",
+        "relevant_chunks": [20]
+    },
+    {
+        "query": "What indicates overflow condition?",
+        "answer": "F8E3 indicates overflow condition when water level exceeds capacity.",
+        "relevant_chunks": [25]
+    },
+    {
+        "query": "What is the drain hose height requirement?",
+        "answer": "Drain height must be between 39 inches and 8 feet above floor.",
+        "relevant_chunks": [18]
+    },
+    {
+        "query": "What happens if lid is not opened between cycles?",
+        "answer": "F5E4 fault is triggered indicating lid not opened between cycles.",
+        "relevant_chunks": [24]
+    },
+    {
+        "query": "What is the average total water usage per cycle?",
+        "answer": "22 gallons.",
+        "relevant_chunks": [11]
+    },
+    {
+    "query": "What is the maximum G-force?",
+    "answer": "Maximum G-force is 143.",
+    "relevant_chunks": [10]
+    },
+    {
+        "query": "What is F5E2 error?",
+        "answer": "F5E2 indicates lid lock fault when lid lock does not move to locked position.",
+        "relevant_chunks": [24]
+    },
+    {
+        "query": "What is the maximum motor RPM?",
+        "answer": "The motor RPM is 700.",
+        "relevant_chunks": [10]
+      },
+      {
+        "query": "What should be done before servicing electrical components?",
+        "answer": "Disconnect power before servicing to avoid electric shock.",
+        "relevant_chunks": [17,33,47,59]
+      }
+]
