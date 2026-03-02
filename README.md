@@ -20,30 +20,6 @@ This project enables to ask question and receive answers strictly based on the c
 - **UI**: Streamlit for interactive web interface
 
 ---
-
-### Prerequisites# Mechanic assistant Chat
-
-A Retrieval-Augmented Generation (RAG) chatbot designed to assist field mechanics by providing accurate, source-grounded answers from technical PDF manuals.
-
-## Project Overview
-
-This project enables to ask question and receive answers strictly based on the content of uploaded manuals. It uses:
-
-- **PDF text extraction**
-- **Chunking with overlap**
-- **Embedding generation**
-- **Vectore similarity search**
-- **Context-grounded LLM response with citation format**
-
-**Key Technologies:**
-- **LLM**: GPT-4o-mini (OpenAI) for response generation
-- **Embeddings**: text-embedding-3-small (OpenAI) for semantic search
-- **Document Processing**: PyMuPDF for PDF text extraction
-- **Vector Storage**: NumPy arrays for efficient similarity search
-- **UI**: Streamlit for interactive web interface
-
----
-
 ### Prerequisites
 
 - Python 3.9+
