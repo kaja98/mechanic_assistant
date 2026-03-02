@@ -1,3 +1,4 @@
+"""Validation metrics."""
 # import nltk
 # nltk.download("punkt_tab")
 # nltk.download("stopwords")
@@ -12,6 +13,7 @@ import numpy as np
 
 from src.model import generate_embeddings
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def stem_words(text: str) -> set[str]:
@@ -43,12 +45,6 @@ def cosine_similarity_score(query: str, extracted_text: str) -> float:
     score = float(cosine_similarity(vectors)[0, 1])
     logger.debug("TF-IDF cosine similarity: %.4f", score) 
     return score
-
-# def contextual_similarity(query: str, extracted_text: str) -> float:
-#     query_embedding = generate_embeddings(query)
-#     extracted_text_embedding = generate_embeddings(extracted_text)
-
-#     return cosine_similarity([query_embedding, extracted_text_embedding])[0][0]
 
 def contextual_similarity(query: str, extracted_text: str) -> float: 
     """Return embedding-based cosine similarity between query and text."""

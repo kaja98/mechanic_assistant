@@ -46,17 +46,14 @@ def main():
 
         # Chat input
         if prompt := st.chat_input("Ask a question about your machine..."):
-            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.session_state.messages.insert(0, {"role": "user", "content": prompt})
 
-            # with st.chat_message("user"):
-            #     st.markdown(prompt)
 
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
                     answer = run_pipeline(prompt)
-                    # st.markdown(answer)
 
-            st.session_state.messages.append({"role": "assistant", "content": answer})
+            st.session_state.messages.insert(0, {"role": "assistant", "content": answer})
 
             # Extract source info
             info = parse_source_info(answer)

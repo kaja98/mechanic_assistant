@@ -1,14 +1,28 @@
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from src.utils import load_documents, load_index, timer, parse_source_info
+"""Main."""
+from src.utils import load_index, timer, parse_source_info
 from src.model import generate_embeddings, generate_chat_response
 import numpy as np
 import logging
 from src.document_processor import DocumentProcessor
+from src.validation_metrics import combined_score
+from src.config import TOP_K_RESULT
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def retrieve_top_k(query_embed, chunks,embeddings, k=5): 
+
+def retrieve_top_k(query_text, query_embed, chunks, embeddings, k): 
+    query_embed = query_embed / np.linalg.norm(query_embed)  
+    embed_sims = embeddings @ query_embed 
+    scored = [] 
+    for i, sim in enumerate(embed_sims): 
+        text = chunks[i]["text"] 
+        score = combined_score(query_text, text, sim) 
+        scored.append((i, score, chunks[i])) 
+    scored.sort(key=lambda x: x[1], reverse=True) 
+    return scored[:k]
+
+def retrieve_top_k_cosine_sim(query_embed, chunks,embeddings, k=5): 
     query_embed = query_embed / np.linalg.norm(query_embed) 
     sims = embeddings @ query_embed 
     top_idx = np.argsort(sims)[::-1][:k] 
@@ -19,7 +33,7 @@ def run_pipeline(question: str):
     chunks, embeddings = load_index()
     query_embed = np.array(generate_embeddings([question]))[0]
 
-    retrieved = retrieve_top_k(query_embed, chunks, embeddings, 5)
+    retrieved = retrieve_top_k(question, query_embed, chunks, embeddings, TOP_K_RESULT)
 
     context_parts = [] 
     for _, _, chunk in retrieved:
@@ -45,16 +59,16 @@ def run_pipeline(question: str):
 
 
 if __name__ == '__main__':
-    
+
     with timer() as t_buid_idx:
-        processor = DocumentProcessor()
+        processor = DocumentProcessor(splitter_type="markdown")
         chunks = processor.load_documents()
         processor.build_index(chunks)
-    logger.info("Build index completed in %.2f seconds", t_buid_idx)
+    logger.info("Build index completed in %.2f seconds", t_buid_idx())
     
     question: str = "What should be done before servicing electrical components?"
-    answer = run_pipeline(question) 
-    print(answer)
-    print(parse_source_info(answer))
+    answer = run_pipeline(question)
+    logger.info(answer)
+    logger.info(parse_source_info(answer))
     
 
